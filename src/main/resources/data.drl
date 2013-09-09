@@ -1,0 +1,50 @@
+package me.ycy.drools.test1.data
+
+import java.util.List
+
+declare MyEvent
+    @role(event)
+    @timestamp(timestamp)
+end
+
+rule "over 0.3s"
+    when
+        $list: List() from collect(MyEvent() over window:time(300ms))
+    then
+        System.out.println("Rule: with in 0.3s --> " + $list);
+end
+
+rule "over 1s"
+    when
+        $list: List() from collect(MyEvent() over window:time(1s))
+    then
+        System.out.println("Rule: with in 1s --> " + $list);
+end
+
+rule "over 3s"
+    when
+        $list: List() from collect(MyEvent() over window:time(3s))
+    then
+        System.out.println("Rule: with in 3s --> " + $list);
+end
+
+rule "over 0.3s ep"
+    when
+        $list: List() from collect(MyEvent() over window:time(300ms) from entry-point "stream")
+    then
+        System.out.println("Rule: with in 0.3s use ep --> " + $list);
+end
+
+rule "over 1s ep"
+    when
+        $list: List() from collect(MyEvent() over window:time(1s) from entry-point "stream")
+    then
+        System.out.println("Rule: with in 1s use ep --> " + $list);
+end
+
+rule "over 3s ep"
+    when
+        $list: List() from collect(MyEvent() over window:time(3s) from entry-point "stream")
+    then
+        System.out.println("Rule: with in 3s use ep --> " + $list);
+end

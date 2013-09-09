@@ -6,6 +6,7 @@
 /.ensime*
 /*.tlog
 /*.db
+/*.bin
 
 # sbt specific
 dist/*
